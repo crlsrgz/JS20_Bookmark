@@ -202,6 +202,9 @@ fetchBookmarks();
 
 // 106. //📗 
 // https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage
+// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify
+// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse
+
 /*📝 Local Storage      
     setItem(key, value) – store key/value pair.
     getItem(key) – get the value by key.
@@ -209,9 +212,18 @@ fetchBookmarks();
     clear() – delete everything.
     key(index) – get the key on a given position.
     length – the number of stored items.
+    
+    bookmarks = [{
+        name: 'This Website',
+        url: 'thiswebsite.com',
+      },
+      {
+        name: 'Another Website',
+        url: 'Another.com',
+      }
+    ];
 
+    localStorage.setItem('bookmarks', JSON.stringify(bookmarks))
+    bookmarks = JSON.parse(localStorage.getItem('bookmarks'));
 */
 
-
-// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse
-// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify
