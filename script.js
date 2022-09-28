@@ -10,6 +10,8 @@ let bookmarks = [];
 
 
 // Show Modal, Focus input
+// 📝 JS - element.focus() will set the cursor in the element
+// 📝 for instance in a form field. 
 function showModal() {
   modal.classList.add('show-modal');
   websiteNameEl.focus();
@@ -19,8 +21,10 @@ function showModal() {
 
 modalShow.addEventListener('click', showModal);
 modalClose.addEventListener('click', () => {modal.classList.remove('show-modal')});
+
+// 📝 JS - Removing a overlay with the terniary operator 
+// 📝 JS - If the event.target is the modal, black overlay with the form, then remove the modal, or not 
 window.addEventListener('click', (event) => {
-// console.log(event.target);
 event.target === modal ? modal.classList.remove('show-modal'): false;
 });
 
@@ -33,21 +37,19 @@ function validate(nameValue, urlValue) {
   // https://stackoverflow.com/questions/3809401/what-is-a-good-regular-expression-to-match-a-url
   const expression = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/g;
   const regex = new RegExp(expression);
-
+  // Check if the name and the url were inputed, if not return false
   if(!nameValue || !urlValue) {
     alert('Please submit values for both fields.');
     return false;
   }
-  // Working code removed
-  // if (urlValue.match(regex)) {
-  //   alert('match');
-  // } 
+  // 📝  if url value reuturn false from a regex
   if (!urlValue.match(regex)) {
     alert('Please provide a valid web address')
     return false;
   }
   
   // Valid
+  // 💡 After the validation return true 
   return true;
 
 }
@@ -81,18 +83,20 @@ function buildBookmarks() {
     favicon.setAttribute('alt', 'Favicon');
 
     // Link
+    /*📝 JS -  Set element Attributes
+      const link = document.createElement('a')
+      link.setAttribute('href', `${url}`);
+      link.setAttribute('target', '_blank');
+    */   
     const link = document.createElement('a');
     link.setAttribute('href', `${url}`);
     link.setAttribute('target', '_blank');
     link.textContent = name;
 
-    // Append to bookmark container
-    // item.appendChild(closeIcon);
-    // linkInfo.appendChild(favicon);
-    // linkInfo.appendChild(link);
-    // item.appendChild(linkInfo);
-    // bookmarksContainer.appendChild(item);
-
+    /*📝  JS - Append multiple elements to a html element element
+      element.append(elementOne, elementTwo, elementThree);
+    */
+    
     linkInfo.append(favicon, link);
     item.append(closeIcon, linkInfo);
     bookmarksContainer.appendChild(item);
@@ -102,7 +106,24 @@ function buildBookmarks() {
 
 //Delete bookmarks
 function deleteBookmark(url){
-  //📗 Splice method 
+  /*📝 array.splice() can insert, remove and replace elements in the array
+    Delete
+    let arrayOne = [1,2,3,4,5];
+    arrayOne.splice(1,1); // from index 1 remove 1
+    console.log(arrayOne); //[1,3,4,5]
+
+    Replace
+    let arrayTwo = [15,20,30,45];
+    const newArrayTwo = arrayTwo.splice(1, 2, 25, 35); // 
+    console.log(newArrayTwo); // [20,30] deleted values in a new array
+    console.log(arrayTwo); // [15,25,35,45]
+
+    Insert
+    let arrayThree = [11,14];
+    arrayThree.splice(1,0,12,13); //[]
+    console.log(arrayThree); // [11,12,13,14]
+  */
+
   bookmarks.forEach((bookmark, i) => {
     if(bookmark.url === url) {
       bookmarks.splice(i, 1);
@@ -125,7 +146,7 @@ function fetchBookmarks() {
     // Create a bookmarks array
     bookmarks = [{
       name: 'Jacinto',
-      url: 'https:jacinto.design',
+      url: 'https://jacinto.design',
     }];
 
     localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
@@ -181,5 +202,16 @@ fetchBookmarks();
 
 // 106. //📗 
 // https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage
+/*📝 Local Storage      
+    setItem(key, value) – store key/value pair.
+    getItem(key) – get the value by key.
+    removeItem(key) – remove the key with its value.
+    clear() – delete everything.
+    key(index) – get the key on a given position.
+    length – the number of stored items.
+
+*/
+
+
 // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse
 // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify
